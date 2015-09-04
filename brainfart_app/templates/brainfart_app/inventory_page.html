@@ -1,0 +1,77 @@
+<fieldset class="stock-control">
+
+    <legend>Edit Stock Amount</legend>
+
+    <label>ID:</label>
+    <input type="text" id="txt-id">
+
+    <label>Amount:</label>
+    <input type="text" id="txt-change"><br />
+
+    <input type="button" id="btn-add" value="Add">
+    <input type="button" id="btn-sub" value="Subtract">
+    <input type="button" id="btn-set" value="Set">
+
+    <br />
+    <label>In stock: </label><span id="lbl-total"></span>
+
+</fieldset>
+
+<fieldset class="stock-control">
+
+    <legend>Edit Stock Amount</legend>
+
+    <label>ID:</label>
+    <input type="text" class="txt-id">
+
+    <label>Amount:</label>
+    <input type="text" class="txt-change"><br />
+
+    <input type="button" class="btn-add" value="Add">
+    <input type="button" class="btn-sub" value="Subtract">
+    <input type="button" class="btn-set" value="Set">
+
+    <br />
+    <label>In stock: </label><span class="lbl-total"></span>
+
+</fieldset>
+<script>
+// Your code
+
+$(function () {
+
+    $('.stock-control').each(function () {
+
+        var $control = $(this);
+        var $id = $control.find('.txt-id');
+        var $amount = $control.find('.txt-amount');
+        var $total = $control.find('.lbl-total');
+
+        function RenderAmount() {
+            $total.text(StockRecorder.GetAmount($id.val()));
+        };
+
+        $('.btn-add').click(function () {
+            var stock = parseInt($total.text()) + parseInt($amount.val());
+            StockRecorder.Update($id.val(), stock);
+            RenderAmount();
+        });
+
+        $('.btn-sub').click(function () {
+            var stock = parseInt($total.text()) - parseInt($amount.val());
+            StockRecorder.Update($id.val(), stock);
+            RenderAmount();
+        });
+
+        $('.btn-set').click(function () {
+            StockRecorder.Update($id.val(), parseInt($amount.val()));
+            RenderAmount();
+        });
+
+        // Initialize
+        RenderAmount();
+
+    });
+
+});
+</script>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+</script>
+{#HTML Begins#}
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .column {
+            width: 30%;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .content select,
+        .content input {
+            width: 100%;
+
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <h1>Index Page</h1>
+
+    <div class='column'>
+        <div>Filter By:</div>
+        <select size="12" id='categories'></select>
+        <input id='category'>
+        <button id="add_category">Add Category</button>
+    </div>
+    <table>
+        <div class='column'>
+            <div>Items</div>
+            <select size="12" id='items'></select>
+            <input id='item'>
+            <button id="add_item">Add Item</button>
+        </div>
+
+        <div class='column'>
+            <div>Name</div>
+            <input id='name'>
+
+            <div>Quantity</div>
+            <input id='quantity'>
+            <button id="save">Save</button>
+            <button id="delete">Delete</button>
+        </div>
+    </table>
+</div>
+</body>
+<script src="/static/scripts/app/models/category.js"></script>
+<script src="/static/scripts/app/models/item.js"></script>
+<script src="/static/scripts/app/views/category.js"></script>
+<script src="/static/scripts/app/views/item.js"></script>
+<script src="/static/scripts/app.js"></script>
+</html>
+{#    var categories = [#}
+{#        {id: 1, name: 'Fruit'},#}
+{#        {id: 2, name: 'Vegetables'},#}
+{#        {id: 3, name: 'Meats'},#}
+{#        {id: 4, name: 'Snacks'},#}
+{#        {id: 5, name: 'Pasta'},#}
+{#        {id: 6, name: 'Sauces'}#}
+{#    ];#}
+{##}
+{#    var items = [];#}
+{##}
+{#    var all_items = [#}
+{#        {id: 1, name: 'Apple', quantity: '1'},#}
+{#        {id: 2, name: 'Broccoli', quantity: '2'},#}
+{#        {id: 5, name: 'Spaghetti', quantity: '1'},#}
+{#        {id: 4, name: 'Gold Fish', quantity: '3'},#}
+{#        {id: 6, name: 'Marinara', quantity: '4'},#}
+{#        {id: 3, name: 'Steak', quantity: '13'},#}
+{#        {id: 7, name: 'Orange', quantity: '12'},#}
+{#        {id: 8, name: 'Peach', quantity: '2'},#}
+{#        {id: 9, name: 'Spinach', quantity: '3'},#}
+{#        {id: 10, name: 'Chicken', quantity: '4'},#}
+{#        {id: 11, name: 'Potato chips', quantity: '1'},#}
+{#        {id: 12, name: 'Alfredo', quantity: '2'},#}
+{#        {id: 13, name: 'Fettuccine', quantity: '24'}#}
+{#    ];#}
+{##}
+{#    var category_item_map = [#}
+{#                {category_id: 1, items_id: 1},#}
+{#                {category_id: 2, items_id: 2},#}
+{#                {category_id: 3, items_id: 3},#}
+{#                {category_id: 4, items_id: 4},#}
+{#                {category_id: 5, items_id: 5},#}
+{#                {category_id: 6, items_id: 6},#}
+{#                {category_id: 1, items_id: 7},#}
+{#                {category_id: 1, items_id: 8},#}
+{#                {category_id: 2, items_id: 9},#}
+{#                {category_id: 3, items_id: 10},#}
+{#                {category_id: 4, items_id: 11},#}
+{#                {category_id: 6, items_id: 12},#}
+{#                {category_id: 5, items_id: 13}#}
+{#    ];#}
+{##}
+
+{##}
+{#    function getItemListForCategory(id) {#}
+{#        var list = [];#}
+{#        for (i = 0; i < all_items.length; i++) {#}
+{#            var mapItem = all_items[i];#}
+{#            if (id == mapItem.category_id) {#}
+{#                list.push(mapItem)#}
+{#            }#}
+{##}
+{#        }#}
+{#        return list#}
+{#    }#}
+{##}
+{#    function getItemById(id) {#}
+{#        for (var i = 0; i < all_items.length; i++) {#}
+{#            var item = all_items[i];#}
+{#            console.log(item);#}
+{#            if (item.id == id) {#}
+{#                return item#}
+{#            }#}
+{#        }#}
+{#        return undefined#}
+{#    }#}
+{##}
+{#    function getCategoryById(id) {#}
+{#        for (var i = 0; i < categories.length; i++) {#}
+{#            var category = categories[i];#}
+{#            console.log(category);#}
+{#            if (category.id == id) {#}
+{#                return category#}
+{#            }#}
+{#        }#}
+{#        return undefined#}
+{#    }#}
+{##}
+{#    function getItemByQuantity(quantities) {#}
+{#        for (var i = 0; i < all_quantity.length; i++) {#}
+{#            var quantity = all_quantity[i];#}
+{#            console.log(quantity);#}
+{#            if (quantity.id == id) {#}
+{#                return quantity#}
+{#            }#}
+{#        }#}
+{#    }#}
+{##}
+{#    function drawCategories() {#}
+{#        var categoriesElement = document.getElementById('categories');#}
+{#        categoriesElement.innerHTML = '';#}
+{##}
+{#        for (var i = 0; i < categories.length; i++) {#}
+{#            var cat = categories[i];#}
+{#            console.log(cat);#}
+{##}
+{#            var optionElement = document.createElement('option');#}
+{#            optionElement.setAttribute('value', cat.id);#}
+{#            optionElement.innerHTML = cat.name;#}
+{#            categoriesElement.appendChild(optionElement);#}
+{#        }#}
+{#    }#}
+{##}
+{#    function categoriesLoaded(e) {#}
+{#        categories = JSON.parse(e.target.responseText).Categories;#}
+{#        drawCategories();#}
+{#    }#}
+{##}
+{#    function ajaxLoadCategories() {#}
+{#        var xhr = new XMLHttpRequest();#}
+{#        xhr.open("get", "/api/v1/model/");#}
+{#        xhr.onload = categoriesLoaded;#}
+{#        xhr.send();#}
+{#    }#}
+{##}
+{#    function drawItems() {#}
+{#        var itemsElement = document.getElementById('items');#}
+{#        itemsElement.innerHTML = '';#}
+{##}
+{#        for (var i = 0; i < items.length; i++) {#}
+{#            var item = items[i];#}
+{#            console.log(item);#}
+{##}
+{#            var optionElement = document.createElement('option');#}
+{#            optionElement.setAttribute('value', item.id);#}
+{#            optionElement.innerHTML = item.name + " - " + item.quantity;#}
+{#            itemsElement.appendChild(optionElement);#}
+{#        }#}
+{#    }#}
+{##}
+{#    function itemsReceived(e) {#}
+{#        all_items = JSON.parse(e.target.responseText).items;#}
+{#        drawItems();#}
+{#    }#}
+{##}
+{#    function ajaxLoadItems() {#}
+{#        var xhr = new XMLHttpRequest();#}
+{#        xhr.open("get", "/api/v1/model/items/");#}
+{#        xhr.onload = itemsReceived;#}
+{#        xhr.send();#}
+{#    }#}
+{##}
+{#    function categoryReceived(e) {#}
+{#        console.log(e.target.responseText);#}
+{#        var category = JSON.parse(e.target.responseText);#}
+{#        var updated = window.selectedCategory;#}
+{#        if (updated == undefined) {#}
+{#            updated = category;#}
+{#            all_items.push(updated)#}
+{#        }#}
+{#        updated.name = category.name;#}
+{#        updated.id = category.id;#}
+{#        drawCategories();#}
+{#    }#}
+{##}
+{#    function addCategory() {#}
+{#        var categoryElement = document.getElementById('category');#}
+{#        if (categoryElement.value.length > 0) {#}
+{#            var category = {name: categoryElement.value, id: 0};#}
+{#            window.selectedCategory = category;#}
+{#            categories.push(category);#}
+{#            categoryElement.value = '';#}
+{#            drawCategories();#}
+{#        }#}
+{#        var xhr = new XMLHttpRequest();#}
+{#        xhr.open("post", "/api/v1/model/");#}
+{#        xhr.onload = categoryReceived;#}
+{#        var fd = new FormData();#}
+{#        fd.append("name", category.name);#}
+{#        fd.append("id", category.id);#}
+{#        xhr.send(fd);#}
+{#    }#}
+{##}
+{#    function addItem() {#}
+{#        var itemElement = document.getElementById('item');#}
+{#        if (itemElement.value.length > 0) {#}
+{#            var item = {name: itemElement.value, id: 0, category_id: window.selectedCategory.id, quantity: 0};#}
+{#            items.push(item);#}
+{#            window.selectedItem = item;#}
+{#            itemElement.value = '';#}
+{#            drawItems();#}
+{#            itemSave();#}
+{#        }#}
+{#    }#}
+{##}
+{#    function categoryKeypress(e) {#}
+{#        if (e.keyCode == 13) {#}
+{#            addCategory();#}
+{#        }#}
+{#        console.log(e.key);#}
+{##}
+{#    }#}
+{##}
+{#    function itemKeypress(e) {#}
+{#        if (e.keyCode == 13) {#}
+{#            addItem();#}
+{#        }#}
+{#        console.log(e.key);#}
+{#    }#}
+{##}
+{#    function detailKeypress() {#}
+{##}
+{#    }#}
+{##}
+{#    function drawDetail() {#}
+{#        document.getElementById('name').value = window.selectedItem.name;#}
+{#        document.getElementById('quantity').value = window.selectedItem.quantity#}
+{#    }#}
+{##}
+{#    function itemSelected(e) {#}
+{#        console.log(e.target);#}
+{#        id = e.target.selectedOptions[0].getAttribute('value');#}
+{#        window.selectedItem = getItemById(id);#}
+{#        drawDetail();#}
+{#    }#}
+{#    function itemReceived(e) {#}
+{#        console.log(e.target.responseText);#}
+{#        var item = JSON.parse(e.target.responseText);#}
+{#        var updated = getItemById(item.id);#}
+{#        if (updated == undefined) {#}
+{#            updated = item;#}
+{#            all_items.push(updated)#}
+{#        }#}
+{#        updated.quantity = item.quantity;#}
+{#        updated.name = item.name;#}
+{#        drawItems();#}
+{#    }#}
+{##}
+{#    function itemSave() {#}
+{#        window.selectedItem.name = document.getElementById('name').value;#}
+{#        window.selectedItem.quantity = document.getElementById('quantity').value;#}
+{#        var xhr = new XMLHttpRequest();#}
+{#        xhr.open("post", "/api/v1/model/items/");#}
+{#        xhr.onload = itemReceived;#}
+{#        var fd = new FormData();#}
+{#        fd.append("name", selectedItem.name);#}
+{#        fd.append("id", selectedItem.id);#}
+{#        fd.append("quantity", selectedItem.quantity);#}
+{#        fd.append("category_id", selectedItem.category_id);#}
+{#        xhr.send(fd);#}
+{##}
+{#    }#}
+{##}
+{#    function categorySelected(e) {#}
+{#        id = e.target.selectedOptions[0].getAttribute('value');#}
+{#        window.selectedCategory = getCategoryById(id);#}
+{#        items = getItemListForCategory(id);#}
+{#        drawItems();#}
+{#    }#}
+{##}
+{#    function nameChanged(e) {#}
+{#        window.selectedItem.name = e.target.value;#}
+{#        drawItems();#}
+{#    }#}
+{##}
+{#    function quantityChanged(e) {#}
+{#        window.selectedItem.quantity = e.target.value;#}
+{#        drawItems();#}
+{#    }#}
+{##}
+{#    function init() {#}
+{#        ajaxLoadCategories();#}
+{#        ajaxLoadItems();#}
+{#        document.getElementById('categories').addEventListener('change', categorySelected);#}
+{#        document.getElementById('add_category').addEventListener('click', addCategory);#}
+{#        document.getElementById('category').addEventListener('keypress', categoryKeypress);#}
+{#        document.getElementById('add_item').addEventListener('click', addItem);#}
+{#        document.getElementById('item').addEventListener('keypress', itemKeypress);#}
+{#        document.getElementById('items').addEventListener('change', itemSelected);#}
+{#        document.getElementById('save').addEventListener('click', itemSave);#}
+{#        document.getElementById('name').addEventListener('change', nameChanged);#}
+{#        document.getElementById('quantity').addEventListener('change', quantityChanged);#}
+{##}
+{#    }#}
+{##}
+{#    document.addEventListener('DOMContentLoaded', init)#}
+
+
